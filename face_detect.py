@@ -10,8 +10,7 @@ from pytesser import *
 from pync import Notifier
 import re
 import sys
-import os
-import os.path
+import os, os.path
 
 def click_and_crop(event, x, y, flags, param):
     global refPt
