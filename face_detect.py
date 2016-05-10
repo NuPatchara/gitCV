@@ -11,7 +11,6 @@ from pync import Notifier
 import re
 import sys
 import os, os.path
-#test from git2go
 
 def click_and_crop(event, x, y, flags, param):
     global refPt
@@ -45,7 +44,7 @@ def lernNum(loca,im):
         imDiff = imHeight
     else:
         imDiff = imWidth
-    
+
     imDiff2 = 100*faceH/imDiff
     imH, imW, imC = im.shape
 
@@ -92,7 +91,7 @@ def findNum_fromLern(loca,im):
         imDiff = imHeight
     else:
         imDiff = imWidth
-    
+
     imDiff2 = 100*faceH/imDiff
 
     model = cv2.KNearest()
@@ -126,7 +125,7 @@ def find_most_Color(im, clusters):
     hist = ColorClustering.centroid_histogram(clt)
     bar = ColorClustering.plot_colors(hist, clt.cluster_centers_)
     return bar
-    
+
 def findNum_digiRec(loca,im):
     for rec in loca:
         [x, y, w, h] = loca[rec][0]
@@ -166,7 +165,7 @@ def findNum_Pytesser(loca,im):
     cv2_im = cv2.cvtColor(imgNum,cv2.COLOR_BGR2GRAY)
     # cv2.imwrite('tmpNum%s.jpg'%(faceCount),cv2_im)
     # image_file = 'tmpNum%s.jpg'%(faceCount)
-    
+
     cv2.imwrite('image/tmpNum.jpg',cv2_im)
     image_file = 'image/tmpNum.jpg'
     pil_im = Image.open(image_file)
@@ -208,12 +207,12 @@ def findCont(im):
 
     cntCountF = 0
     imRecCont = imBody.copy()
-    
+
     if imHeight>imWidth:
         imDiff = imHeight
     else:
         imDiff = imWidth
-    
+
     imDiff2 = 100*faceH/imDiff
 
     for cnt in contours:
@@ -227,7 +226,7 @@ def findCont(im):
         # if faceH/10 < h < faceH/2 and faceW/2.5 < w < faceW*1.2:
 
 
-        
+
         # if faceH < imHeight/15:
         #     print '========='
         #     if cv2.contourArea(cnt) > 1 and h > (faceH / 10) and h < (faceH / 2) and w < (faceW / 2):
@@ -293,7 +292,7 @@ for root, _, files in os.walk('image/'):
         cascPath = 'haarcascade_frontalface_default.xml'
         clf = joblib.load("digits_cls.pkl")
         allCont = []
-        
+
         faceCascade = cv2.CascadeClassifier(cascPath)
 
         image = cv2.imread(imagePath)
@@ -345,7 +344,7 @@ for root, _, files in os.walk('image/'):
             faceCount += 1
         ##/Loop face ----------
 
-        
+
         cv2.namedWindow("main", cv2.cv.CV_WINDOW_NORMAL)
         imageWinSize = cv2.resize(imFace, (720, 405))
         cv2.setMouseCallback("main", click_and_crop)
@@ -362,8 +361,3 @@ for root, _, files in os.walk('image/'):
             elif key == ord("q"):
                 cv2.destroyAllWindows()
                 sys.exit()
-
-
-
-
-
